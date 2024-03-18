@@ -13,9 +13,19 @@ function handleKeyboardKeyupEvent(event) {
     currentScoreElement.innerText = newScore;
     
     removeBackgroundColorById(expectedAlphabet);
-    const finalScore = document.getElementById('final');
-    finalScore.innerText = currentScoreElement;
+
+    // const finalScoreElement = document.getElementById('final');
+    // const finalScoreText = finalScoreElement.innerText;
+    // const finalScore = parseInt(finalScoreText)
+    // finalScore.innerText = newScore;
+
+    const finalScoreElement = document.getElementById('final'); 
+    const finalScoreText = finalScoreElement.innerText;
+    const finalScore = parseInt(finalScoreText);
+    finalScoreElement.innerText = newScore;
+
     continueGame();
+
   } else {
     console.log("you lose");
     const currentLifeElement = document.getElementById("current-life");
@@ -26,6 +36,8 @@ function handleKeyboardKeyupEvent(event) {
     
     if(newLife === 0){
        gameOver()
+      
+       
     }
   }
 }
