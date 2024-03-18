@@ -1,27 +1,54 @@
-// function play() {
-//   // step 1 - hide the home screen . to hide the screen add the class hidden  to the home section .
+function handleKeyboardKeyupEvent(event) {
+  const playerPressed = event.key;
+  const currentAlphabetElement = document.getElementById("current-alphabet");
+  const currentAlphabet = currentAlphabetElement.innerText;
+  const expectedAlphabet = currentAlphabet.toLocaleLowerCase();
+  if (playerPressed === expectedAlphabet) {
+    console.log("you won");
 
-//    const homeSection = document.getElementById('home-screen');
-//    homeSection.classList.add('hidden')
-   
-//   // show the play ground 
-//   const playGroundSection = document.getElementById('play-ground');
-//   playGroundSection.classList.remove('hidden')
-// }
-
-
-function continueGame(){
-    // step 1 : generate random Alphabet 
-    const alphabet = getARandomAlphabet();
-    console.log('Your Random Alphabet is ',alphabet)
-    // set rondomly generated alphabet to the screen (showing);
-    const currentAlphabetElement = document.getElementById('current-alphabet');
-    currentAlphabetElement.innerText = alphabet;
-    setBackgroundColorById(alphabet)
+    const currentScoreElement = document.getElementById("current-score");
+    const currentScoreText = currentScoreElement.innerText;
+    const currentScore = parseInt(currentScoreText);
+    const newScore = currentScore + 1;
+    currentScoreElement.innerText = newScore;
+    
+    removeBackgroundColorById(expectedAlphabet);
+    const finalScore = document.getElementById('final');
+    finalScore.innerText = currentScoreElement;
+    continueGame();
+  } else {
+    console.log("you lose");
+    const currentLifeElement = document.getElementById("current-life");
+    const currentLifeText = currentLifeElement.innerText;
+    const currentLife = parseInt(currentLifeText);
+    const newLife = currentLife - 1;
+    currentLifeElement.innerText = newLife;
+    
+    if(newLife === 0){
+       gameOver()
+    }
+  }
 }
 
-function play(){
-    hideElementById('home-screen');
-    showElementById('play-ground')
-    continueGame()
+document.addEventListener("keyup", handleKeyboardKeyupEvent);
+
+function continueGame() {
+  // step 1 : generate random Alphabet
+  const alphabet = getARandomAlphabet();
+  console.log("Your Random Alphabet is ", alphabet);
+  // set randomly generated alphabet to the screen (showing);
+  const currentAlphabetElement = document.getElementById("current-alphabet");
+  currentAlphabetElement.innerText = alphabet;
+  setBackgroundColorById(alphabet);
+}
+
+function play() {
+  hideElementById("home-screen");
+  showElementById("play-ground");
+  continueGame();
+}
+
+function gameOver(){
+   hideElementById('play-ground');
+   showElementById('final-score');
 }
